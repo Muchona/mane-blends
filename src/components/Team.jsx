@@ -7,17 +7,17 @@ const Team = () => {
     {
       name: 'Daniel Cruz',
       role: 'Owner',
-      image: '/team-1.png'
+      image: 'team-1.png'
     },
     {
       name: 'Victor Morales',
       role: 'Color Specialist',
-      image: '/team-2.png'
+      image: 'team-2.png'
     },
     {
       name: 'Miles Turner',
       role: 'Barber',
-      image: '/team-3.png'
+      image: 'team-3.png'
     }
   ];
 

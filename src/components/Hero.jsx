@@ -9,7 +9,7 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-brand-dark/40 z-10"></div>
         <img 
-          src="/hero.png" 
+          src="hero.png" 
           alt="Mane Blends Premium Barbershop" 
           className="w-full h-full object-cover object-center"
         />

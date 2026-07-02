@@ -45,7 +45,7 @@ const Benefits = () => {
           >
             <div className="aspect-[4/5] overflow-hidden relative">
               <img 
-                src="/benefits-barber.png" 
+                src="benefits-barber.png" 
                 alt="Professional Barber" 
                 className="w-full h-full object-cover"
               />
