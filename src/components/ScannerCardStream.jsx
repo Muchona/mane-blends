@@ -60,22 +60,33 @@ const ScannerCardStream = ({
   repeat = 4,
   cardGap = 60,
   friction = 0.95,
+  friction = 0.95,
   scanEffect = 'scramble',
 }) => {
 
   const [speed, setSpeed] = useState(initialSpeed);
   const [isPaused, setIsPaused] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   
   const cards = useMemo(() => {
     // Double the repeat to guarantee two identical sets of cards for seamless wrapping
     const totalCards = reviews.length * repeat * 2;
+    const cardWidth = isMobile ? 320 : 400;
     return Array.from({ length: totalCards }, (_, i) => ({
       id: i,
       review: reviews[i % reviews.length],
-      ascii: generateCode(Math.floor(400 / 6.5), Math.floor(300 / 13)), // Adjusted for height 300
+      ascii: generateCode(Math.floor(cardWidth / 6.5), Math.floor(300 / 13)), // Adjusted for height 300
     }))
-  }, [reviews, repeat]);
+  }, [reviews, repeat, isMobile]);
 
   const cardLineRef = useRef(null);
   const particleCanvasRef = useRef(null);
@@ -84,11 +95,39 @@ const ScannerCardStream = ({
 
   const cardStreamState = useRef({
     position: 0, velocity: initialSpeed, direction: direction, isDragging: false,
-    lastMouseX: 0, lastTime: performance.now(), cardLineWidth: (400 + cardGap) * cards.length,
+    lastMouseX: 0, lastTime: performance.now(), cardLineWidth: 0,
     friction: friction, minVelocity: 30,
   });
 
   const scannerState = useRef({ isScanning: false });
+
+  // Event handlers for dragging
+  const handleDragStart = useCallback((clientX) => {
+    setIsPaused(true);
+    cardStreamState.current.isDragging = true;
+    cardStreamState.current.lastMouseX = clientX;
+    cardStreamState.current.velocity = 0;
+  }, []);
+
+  const handleDragMove = useCallback((clientX) => {
+    if (!cardStreamState.current.isDragging) return;
+    const deltaX = clientX - cardStreamState.current.lastMouseX;
+    cardStreamState.current.position += deltaX;
+    cardStreamState.current.velocity = Math.abs(deltaX) * 10; // Boost velocity for throwing
+    cardStreamState.current.direction = deltaX > 0 ? 1 : -1;
+    cardStreamState.current.lastMouseX = clientX;
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    setIsPaused(false);
+    cardStreamState.current.isDragging = false;
+    // ensure velocity doesn't drop below minVelocity if we want it to keep moving
+    if (cardStreamState.current.velocity < cardStreamState.current.minVelocity) {
+      cardStreamState.current.velocity = cardStreamState.current.minVelocity;
+      cardStreamState.current.direction = direction; // fallback to default direction
+    }
+  }, [direction]);
+
   
   useEffect(() => {
     const cardLine = cardLineRef.current;
@@ -101,6 +140,8 @@ const ScannerCardStream = ({
     let animationFrameId;
 
     const scene = new THREE.Scene();
+    const cardWidth = isMobile ? 320 : 400;
+    cardStreamState.current.cardLineWidth = (cardWidth + cardGap) * cards.length;
     const camera = new THREE.OrthographicCamera(-window.innerWidth / 2, window.innerWidth / 2, 150, -150, 1, 1000); // 300 height
     camera.position.z = 100;
     const renderer = new THREE.WebGLRenderer({ canvas: particleCanvas, alpha: true, antialias: true });
@@ -159,8 +200,9 @@ const ScannerCardStream = ({
         const originalText = originalAscii.current.get(cardId) || '';
         let scrambleCount = 0;
         const maxScrambles = 10;
+        const cardWidth = isMobile ? 320 : 400;
         const interval = setInterval(() => {
-            element.textContent = generateCode(Math.floor(400 / 6.5), Math.floor(300 / 13));
+            element.textContent = generateCode(Math.floor(cardWidth / 6.5), Math.floor(300 / 13));
             scrambleCount++;
             if (scrambleCount >= maxScrambles) {
                 clearInterval(interval);
@@ -254,7 +296,7 @@ const ScannerCardStream = ({
     animationFrameId = requestAnimationFrame(animate);
     
     return () => { cancelAnimationFrame(animationFrameId); };
-  }, [isPaused, cards, cardGap, friction, scanEffect]);
+  }, [isPaused, cards, cardGap, friction, scanEffect, isMobile]);
 
   return (
     <div className="relative w-screen h-[400px] flex items-center justify-center overflow-hidden left-1/2 -translate-x-1/2">
@@ -288,10 +330,21 @@ const ScannerCardStream = ({
         }}
       />
 
-      <div className="absolute w-screen h-[300px] flex items-center">
-        <div ref={cardLineRef} className="flex items-center whitespace-nowrap cursor-grab select-none will-change-transform" style={{ gap: `${cardGap}px` }}>
+      <div className="absolute w-screen h-[300px] flex items-center overflow-visible">
+        <div 
+          ref={cardLineRef} 
+          className="flex items-center whitespace-nowrap cursor-grab active:cursor-grabbing select-none will-change-transform" 
+          style={{ gap: `${cardGap}px` }}
+          onMouseDown={(e) => handleDragStart(e.clientX)}
+          onMouseMove={(e) => handleDragMove(e.clientX)}
+          onMouseUp={handleDragEnd}
+          onMouseLeave={handleDragEnd}
+          onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+          onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+          onTouchEnd={handleDragEnd}
+        >
           {cards.map(card => (
-            <div key={card.id} className="card-wrapper relative w-[400px] h-[300px] shrink-0">
+            <div key={card.id} className={`card-wrapper relative ${isMobile ? 'w-[320px]' : 'w-[400px]'} h-[300px] shrink-0`}>
               <div className="card-normal card absolute top-0 left-0 w-full h-full rounded-[15px] overflow-hidden bg-transparent shadow-[0_15px_40px_rgba(0,0,0,0.4)] z-[2] [clip-path:inset(0_0_0_var(--clip-right,0%))]">
                 <InnerReviewCard review={card.review} />
               </div>

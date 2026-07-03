@@ -98,7 +98,7 @@ const Navbar = () => {
                 <div className={`
                     relative flex items-center justify-between 
                     w-full max-w-5xl 
-                    px-6 py-2 
+                    px-5 py-3 md:px-6 md:py-2 
                     rounded-full 
                     border border-white/10
                     transition-all duration-500
@@ -109,8 +109,8 @@ const Navbar = () => {
                 `}>
                     {/* Logo */}
                     <button onClick={() => scrollToSection('#')} className="flex items-center gap-2 group">
-                        <Scissors className="h-6 w-6 text-brand-primary group-hover:rotate-12 transition-transform duration-300" />
-                        <span className={`font-display font-bold text-xl tracking-tighter transition-colors ${scrolled ? 'text-white' : 'text-white'}`}>
+                        <Scissors className="h-7 w-7 text-brand-primary group-hover:rotate-12 transition-transform duration-300" />
+                        <span className={`font-display font-bold text-2xl tracking-tighter transition-colors ${scrolled ? 'text-white' : 'text-white'}`}>
                             MANE BLENDS
                         </span>
                     </button>

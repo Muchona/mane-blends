@@ -21,8 +21,8 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h1 className="text-4xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-4 md:mb-6 uppercase tracking-tight max-w-3xl">
-            The <span className="text-brand-primary italic pr-1 md:pr-2">Best</span> <br className="hidden md:block" /> in the World
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-6 uppercase tracking-tight max-w-3xl leading-tight">
+            The <span className="text-brand-primary italic pr-2">Best</span> <br className="hidden sm:block" /> in the World
           </h1>
         </motion.div>
         
@@ -30,7 +30,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-2 md:mt-4 text-lg md:text-2xl text-gray-300 max-w-xl font-light mb-8 md:mb-10"
+          className="mt-2 md:mt-4 text-xl md:text-2xl text-gray-300 max-w-xl font-light mb-8 md:mb-10"
         >
           Premium grooming studio in Monaghan, Ireland. Where classic techniques meet modern style.
         </motion.p>
@@ -40,7 +40,7 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <ShinyButton href="#book" className="inline-block px-10 py-4 rounded-full font-bold text-lg tracking-widest uppercase shadow-xl hover:shadow-brand-primary/20">
+          <ShinyButton href="#book" className="inline-block w-full sm:w-auto text-center px-10 py-5 rounded-full font-bold text-xl tracking-widest uppercase shadow-xl hover:shadow-brand-primary/20">
             Book Appointment
           </ShinyButton>
         </motion.div>
