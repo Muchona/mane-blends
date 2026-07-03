@@ -60,7 +60,6 @@ const ScannerCardStream = ({
   repeat = 4,
   cardGap = 60,
   friction = 0.95,
-  friction = 0.95,
   scanEffect = 'scramble',
 }) => {
 
