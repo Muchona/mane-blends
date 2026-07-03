@@ -118,25 +118,30 @@ const GallerySection = () => {
               />
               
               {/* Label with icon and info */}
-              <div className="label absolute left-0 right-0 bottom-4 md:bottom-6 flex items-center justify-start h-14 z-10 pointer-events-none px-4 md:px-6 gap-4 w-[600px]">
-                <div className="icon min-w-[40px] max-w-[40px] h-[40px] md:min-w-[48px] md:max-w-[48px] md:h-[48px] flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md shadow-lg border border-white/20 flex-shrink-0 transition-transform duration-500 hover:scale-110 text-brand-primary">
-                  {option.icon}
+              <div className="label absolute left-0 right-0 bottom-1 md:bottom-6 flex items-center justify-start min-h-[40px] md:h-14 z-10 pointer-events-none px-4 md:px-6 gap-3 md:gap-4 w-full md:w-[600px]">
+                <div className="icon min-w-[32px] max-w-[32px] h-[32px] md:min-w-[48px] md:max-w-[48px] md:h-[48px] flex items-center justify-center rounded-full bg-black/50 backdrop-blur-md shadow-lg border border-white/20 flex-shrink-0 transition-transform duration-500 hover:scale-110 text-brand-primary">
+                  {React.cloneElement(option.icon, { size: activeIndex === index ? 20 : 16, className: 'text-white' })}
                 </div>
-                <div className="info text-white whitespace-pre relative flex flex-col justify-center">
+                <div className="info text-white whitespace-pre relative flex flex-col justify-center overflow-hidden">
                   <div 
-                    className="main font-display font-bold text-xl md:text-2xl tracking-tight transition-all duration-700 ease-out"
+                    className="main font-display font-bold text-sm md:text-2xl tracking-tight transition-all duration-700 ease-out"
                     style={{
-                      opacity: activeIndex === index ? 1 : 0,
-                      transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
+                      opacity: activeIndex === index ? 1 : 0.9,
+                      transform: 'translateX(0)',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis'
                     }}
                   >
                     {option.title}
                   </div>
                   <div 
-                    className="sub text-sm md:text-base text-gray-300 font-medium transition-all duration-700 ease-out delay-75"
+                    className="sub text-[10px] md:text-base text-gray-300 font-medium transition-all duration-700 ease-out delay-75"
                     style={{
-                      opacity: activeIndex === index ? 1 : 0,
-                      transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
+                      opacity: activeIndex === index ? 1 : 0.7,
+                      transform: 'translateX(0)',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                      display: activeIndex === index ? 'block' : 'none'
                     }}
                   >
                     {option.description}

@@ -17,34 +17,34 @@ const generateCode = (width, height) => {
 
 const InnerReviewCard = ({ review }) => {
     return (
-        <div className="bg-[#241a30] rounded-[15px] h-full flex flex-col p-8 w-full shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] whitespace-normal">
-            <div className="flex gap-1.5 mb-6">
+        <div className="bg-[#241a30] rounded-[15px] h-full flex flex-col p-4 md:p-6 w-full shadow-[inset_0_0_20px_rgba(0,0,0,0.1)] whitespace-normal">
+            <div className="flex gap-1 mb-2 md:mb-4">
                 {[...Array(5)].map((_, i) => (
                     <Star
                         key={i}
-                        size={18}
+                        size={14}
                         fill={i < review.rating ? "#ffffff" : "none"}
                         className={i < review.rating ? "text-white" : "text-white/20"}
                     />
                 ))}
             </div>
-            <p className="text-white/90 font-medium leading-relaxed flex-1 text-sm md:text-base mb-6 font-sans">
+            <p className="text-white/90 font-medium leading-tight md:leading-relaxed flex-1 text-xs md:text-sm mb-2 md:mb-4 font-sans overflow-hidden">
                 {review.text}
             </p>
             {review.attachedImage && (
-                <div className="mb-4 w-full h-24 rounded-xl overflow-hidden shrink-0 mt-auto shadow-inner">
+                <div className="mb-2 md:mb-4 w-full h-16 rounded-xl overflow-hidden shrink-0 mt-auto shadow-inner">
                     <img src={review.attachedImage} alt="Attached" className="w-full h-full object-cover" />
                 </div>
             )}
-            <div className={`flex items-center gap-4 ${!review.attachedImage ? 'mt-auto' : ''}`}>
-                <div className="w-10 h-10 rounded-full bg-[#a855f7] flex items-center justify-center text-white font-bold text-lg shrink-0 shadow-lg shadow-purple-500/20">
+            <div className={`flex items-center gap-3 ${!review.attachedImage ? 'mt-auto' : ''}`}>
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#a855f7] flex items-center justify-center text-white font-bold text-sm md:text-lg shrink-0 shadow-lg shadow-purple-500/20">
                     {review.author.charAt(0)}
                 </div>
                 <div>
-                    <h4 className="font-sans font-bold text-white text-sm">
+                    <h4 className="font-sans font-bold text-white text-xs md:text-sm">
                         {review.author}
                     </h4>
-                    <span className="text-xs text-white/50 font-medium">{review.role || review.date}</span>
+                    <span className="text-[10px] md:text-xs text-white/50 font-medium">{review.role || review.date}</span>
                 </div>
             </div>
         </div>
@@ -56,9 +56,9 @@ const ScannerCardStream = ({
   showControls = false,
   showSpeed = false,
   initialSpeed = 150,
-  direction = -1,
+  direction = 1,
   repeat = 4,
-  cardGap = 60,
+  cardGap = 30,
   friction = 0.95,
   scanEffect = 'scramble',
 }) => {
@@ -79,11 +79,11 @@ const ScannerCardStream = ({
   const cards = useMemo(() => {
     // Double the repeat to guarantee two identical sets of cards for seamless wrapping
     const totalCards = reviews.length * repeat * 2;
-    const cardWidth = isMobile ? 320 : 400;
+    const cardWidth = isMobile ? 240 : 320;
     return Array.from({ length: totalCards }, (_, i) => ({
       id: i,
       review: reviews[i % reviews.length],
-      ascii: generateCode(Math.floor(cardWidth / 6.5), Math.floor(300 / 13)), // Adjusted for height 300
+      ascii: generateCode(Math.floor(cardWidth / 6.5), Math.floor(240 / 13)), // Adjusted for height 240
     }))
   }, [reviews, repeat, isMobile]);
 
@@ -139,12 +139,12 @@ const ScannerCardStream = ({
     let animationFrameId;
 
     const scene = new THREE.Scene();
-    const cardWidth = isMobile ? 320 : 400;
+    const cardWidth = isMobile ? 240 : 320;
     cardStreamState.current.cardLineWidth = (cardWidth + cardGap) * cards.length;
-    const camera = new THREE.OrthographicCamera(-window.innerWidth / 2, window.innerWidth / 2, 150, -150, 1, 1000); // 300 height
+    const camera = new THREE.OrthographicCamera(-window.innerWidth / 2, window.innerWidth / 2, 120, -120, 1, 1000); // 240 height
     camera.position.z = 100;
     const renderer = new THREE.WebGLRenderer({ canvas: particleCanvas, alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, 300);
+    renderer.setSize(window.innerWidth, 240);
     renderer.setClearColor(0x000000, 0);
     const particleCount = 400;
     const geometry = new THREE.BufferGeometry();
@@ -166,7 +166,7 @@ const ScannerCardStream = ({
     const texture = new THREE.CanvasTexture(texCanvas);
     for (let i = 0; i < particleCount; i++) {
         positions[i * 3] = (Math.random() - 0.5) * window.innerWidth * 2;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 300;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 240;
         velocities[i] = Math.random() * 60 + 30;
         alphas[i] = (Math.random() * 8 + 2) / 10;
     }
@@ -182,13 +182,13 @@ const ScannerCardStream = ({
     scene.add(particles);
     const ctx = scannerCanvas.getContext('2d');
     scannerCanvas.width = window.innerWidth;
-    scannerCanvas.height = 300;
+    scannerCanvas.height = 240;
     let scannerParticles = [];
     const baseMaxParticles = 800;
     let currentMaxParticles = baseMaxParticles;
     const scanTargetMaxParticles = 2500;
     const createScannerParticle = () => ({
-      x: window.innerWidth / 2 + (Math.random() - 0.5) * 3, y: Math.random() * 300, vx: Math.random() * 0.8 + 0.2, vy: (Math.random() - 0.5) * 0.3,
+      x: window.innerWidth / 2 + (Math.random() - 0.5) * 3, y: Math.random() * 240, vx: Math.random() * 0.8 + 0.2, vy: (Math.random() - 0.5) * 0.3,
       radius: Math.random() * 0.6 + 0.4, alpha: Math.random() * 0.4 + 0.6, life: 1.0, decay: Math.random() * 0.02 + 0.005,
     });
     for (let i = 0; i < baseMaxParticles; i++) scannerParticles.push(createScannerParticle());
@@ -199,9 +199,9 @@ const ScannerCardStream = ({
         const originalText = originalAscii.current.get(cardId) || '';
         let scrambleCount = 0;
         const maxScrambles = 10;
-        const cardWidth = isMobile ? 320 : 400;
+        const cardWidth = isMobile ? 240 : 320;
         const interval = setInterval(() => {
-            element.textContent = generateCode(Math.floor(cardWidth / 6.5), Math.floor(300 / 13));
+            element.textContent = generateCode(Math.floor(cardWidth / 6.5), Math.floor(240 / 13));
             scrambleCount++;
             if (scrambleCount >= maxScrambles) {
                 clearInterval(interval);
@@ -279,7 +279,7 @@ const ScannerCardStream = ({
       geometry.attributes.position.needsUpdate = true;
       geometry.attributes.alpha.needsUpdate = true;
       renderer.render(scene, camera);
-      ctx.clearRect(0, 0, window.innerWidth, 300);
+      ctx.clearRect(0, 0, window.innerWidth, 240);
       const targetCount = scannerState.current.isScanning ? scanTargetMaxParticles : baseMaxParticles;
       currentMaxParticles += (targetCount - currentMaxParticles) * 0.05;
       while (scannerParticles.length < currentMaxParticles) scannerParticles.push(createScannerParticle());
@@ -298,7 +298,7 @@ const ScannerCardStream = ({
   }, [isPaused, cards, cardGap, friction, scanEffect, isMobile]);
 
   return (
-    <div className="relative w-screen h-[400px] flex items-center justify-center overflow-hidden left-1/2 -translate-x-1/2">
+    <div className="relative w-screen h-[280px] flex items-center justify-center overflow-hidden left-1/2 -translate-x-1/2">
       <style jsx global>{`
         @keyframes glitch { 0%, 16%, 50%, 100% { opacity: 1; } 15%, 99% { opacity: 0.9; } 49% { opacity: 0.8; } }
         .animate-glitch { animation: glitch 0.1s infinite linear alternate-reverse; }
@@ -312,12 +312,12 @@ const ScannerCardStream = ({
         }
       `}</style>
 
-      <canvas ref={particleCanvasRef} className="absolute top-1/2 left-0 -translate-y-1/2 w-screen h-[300px] z-0 pointer-events-none" />
-      <canvas ref={scannerCanvasRef} className="absolute top-1/2 left-0 -translate-y-1/2 w-screen h-[300px] z-10 pointer-events-none" />
+      <canvas ref={particleCanvasRef} className="absolute top-1/2 left-0 -translate-y-1/2 w-screen h-[240px] z-0 pointer-events-none" />
+      <canvas ref={scannerCanvasRef} className="absolute top-1/2 left-0 -translate-y-1/2 w-screen h-[240px] z-10 pointer-events-none" />
       
       <div
         className={`
-          scanner-line absolute top-1/2 left-1/2 h-[340px] w-0.5 -translate-x-1/2 -translate-y-1/2 
+          scanner-line absolute top-1/2 left-1/2 h-[260px] w-0.5 -translate-x-1/2 -translate-y-1/2 
           bg-gradient-to-b from-transparent via-violet-500 to-transparent rounded-full
           transition-opacity duration-300 z-20 pointer-events-none animate-scan-pulse
           ${isScanning ? 'opacity-100' : 'opacity-0'}
@@ -343,12 +343,12 @@ const ScannerCardStream = ({
           onTouchEnd={handleDragEnd}
         >
           {cards.map(card => (
-            <div key={card.id} className={`card-wrapper relative ${isMobile ? 'w-[320px]' : 'w-[400px]'} h-[300px] shrink-0`}>
+            <div key={card.id} className={`card-wrapper relative ${isMobile ? 'w-[240px]' : 'w-[320px]'} h-[240px] shrink-0`}>
               <div className="card-normal card absolute top-0 left-0 w-full h-full rounded-[15px] overflow-hidden bg-transparent shadow-[0_15px_40px_rgba(0,0,0,0.4)] z-[2] [clip-path:inset(0_0_0_var(--clip-right,0%))]">
                 <InnerReviewCard review={card.review} />
               </div>
               <div className="card-ascii card absolute top-0 left-0 w-full h-full rounded-[15px] overflow-hidden bg-[#110a18] z-[1] [clip-path:inset(0_calc(100%-var(--clip-left,0%))_0_0)] p-4 flex items-center justify-center">
-                <pre className="ascii-content absolute top-0 left-0 w-full h-full text-[rgba(167,139,250,0.8)] font-mono text-[11px] leading-[13px] overflow-hidden whitespace-pre m-0 p-4 text-left align-top box-border [mask-image:linear-gradient(to_right,rgba(0,0,0,1)_0%,rgba(0,0,0,0.8)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.4)_80%,rgba(0,0,0,0.2)_100%)] animate-glitch">
+                <pre className="ascii-content absolute top-0 left-0 w-full h-full text-[rgba(167,139,250,0.8)] font-mono text-[9px] md:text-[11px] leading-[11px] md:leading-[13px] overflow-hidden whitespace-pre m-0 p-4 text-left align-top box-border [mask-image:linear-gradient(to_right,rgba(0,0,0,1)_0%,rgba(0,0,0,0.8)_30%,rgba(0,0,0,0.6)_50%,rgba(0,0,0,0.4)_80%,rgba(0,0,0,0.2)_100%)] animate-glitch">
                   {card.ascii}
                 </pre>
               </div>

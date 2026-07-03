@@ -39,7 +39,7 @@ const NavbarItem = ({ link, onClick }) => {
                             animate={{ rotate: [-10, 20, -10] }}
                             transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut" }}
                         >
-                            <Scissors className="w-8 h-8 text-brand-primary drop-shadow-lg" />
+                            <img src="Logo.png" alt="Logo" className="h-8 w-auto object-contain drop-shadow-lg" />
                         </motion.div>
                     </motion.div>
                 </>
@@ -109,7 +109,7 @@ const Navbar = () => {
                 `}>
                     {/* Logo */}
                     <button onClick={() => scrollToSection('#')} className="flex items-center gap-2 group">
-                        <Scissors className="h-7 w-7 text-brand-primary group-hover:rotate-12 transition-transform duration-300" />
+                        <img src="Logo.png" alt="Mane Blends Logo" className="h-10 w-auto object-contain group-hover:rotate-12 transition-transform duration-300" />
                         <span className={`font-display font-bold text-2xl tracking-tighter transition-colors ${scrolled ? 'text-white' : 'text-white'}`}>
                             MANE BLENDS
                         </span>

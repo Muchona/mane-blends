@@ -168,7 +168,7 @@ const Reviews = () => {
     };
 
     return (
-        <section className="py-24 relative overflow-hidden bg-[#0a0a0a]" id="reviews">
+        <section className="py-12 md:py-20 relative overflow-hidden bg-[#0a0a0a]" id="reviews">
             {/* Deep Purple Gradient Background matching the image */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#2d1142] to-[#7c266a] opacity-90 pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-fuchsia-600/20 via-transparent to-transparent pointer-events-none" />
@@ -176,17 +176,17 @@ const Reviews = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center relative z-10">
 
                 {/* Header & Stats - Centered Stack */}
-                <div className="w-full max-w-4xl mx-auto text-center mb-16 space-y-12">
+                <div className="w-full max-w-4xl mx-auto text-center mb-8 md:mb-16 space-y-8 md:space-y-12">
 
                     {/* Header */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="space-y-4"
+                        className="space-y-2 md:space-y-4"
                     >
-                        <h4 className="text-purple-300 text-sm font-bold tracking-widest uppercase mb-4 font-display">Client Reviews</h4>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-16 font-display text-white">
+                        <h4 className="text-purple-300 text-xs md:text-sm font-bold tracking-widest uppercase mb-2 md:mb-4 font-display">Client Reviews</h4>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-8 md:mb-16 font-display text-white">
                             What Our Clients Say
                         </h2>
                     </motion.div>
@@ -197,19 +197,19 @@ const Reviews = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 max-w-lg mx-auto shadow-2xl relative"
+                        className="bg-white/5 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-white/10 max-w-lg mx-auto shadow-2xl relative"
                     >
-                        <div className="flex items-end justify-center gap-4 mb-8">
-                            <span className="font-display text-7xl text-white font-bold leading-none">
+                        <div className="flex items-end justify-center gap-4 mb-6 md:mb-8">
+                            <span className="font-display text-5xl md:text-7xl text-white font-bold leading-none">
                                 {stats.average}
                             </span>
-                            <div className="mb-2 text-left">
-                                <div className="flex gap-1 mb-2">
+                            <div className="mb-1 md:mb-2 text-left">
+                                <div className="flex gap-1 mb-1 md:mb-2">
                                     {[...Array(5)].map((_, i) => (
-                                        <Star key={i} size={20} fill="#ffffff" className="text-white" />
+                                        <Star key={i} size={16} fill="#ffffff" className="text-white md:w-5 md:h-5" />
                                     ))}
                                 </div>
-                                <p className="text-xs text-purple-200 font-medium uppercase tracking-widest">
+                                <p className="text-[10px] md:text-xs text-purple-200 font-medium uppercase tracking-widest">
                                     Based on {stats.total} Reviews
                                 </p>
                             </div>
@@ -237,16 +237,16 @@ const Reviews = () => {
                         </div>
                         
                         {/* Buttons */}
-                        <div className="pt-8 border-t border-white/10 flex flex-col items-center gap-4">
+                        <div className="pt-6 md:pt-8 border-t border-white/10 flex flex-col items-center gap-4">
                             <button
                                 onClick={() => setIsModalOpen(true)}
-                                className="px-8 py-3 bg-white text-purple-900 font-display font-bold uppercase tracking-widest rounded-full hover:bg-purple-100 transition-colors w-full sm:w-auto"
+                                className="px-6 py-2 md:px-8 md:py-3 text-sm md:text-base bg-white text-purple-900 font-display font-bold uppercase tracking-widest rounded-full hover:bg-purple-100 transition-colors w-full sm:w-auto"
                             >
                                 Leave Feedback
                             </button>
                             <a
                                 href="#all-feedbacks"
-                                className="text-sm font-medium text-purple-300 hover:text-white transition-colors uppercase tracking-widest underline decoration-purple-500/50 underline-offset-4"
+                                className="text-xs md:text-sm font-medium text-purple-300 hover:text-white transition-colors uppercase tracking-widest underline decoration-purple-500/50 underline-offset-4"
                             >
                                 See all feedbacks
                             </a>

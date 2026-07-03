@@ -11,7 +11,7 @@ const Footer = () => {
           {/* Column 1: Brand */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <Scissors className="h-8 w-8 text-brand-primary" />
+              <img src="Logo.png" alt="Mane Blends Logo" className="h-12 w-auto object-contain" />
               <span className="font-display font-bold text-2xl tracking-tighter text-white">MANE BLENDS</span>
             </div>
             <p className="text-gray-400 leading-relaxed mb-6">
