@@ -27,7 +27,7 @@ const Services = () => {
           <div className="w-24 h-1 bg-brand-primary mx-auto"></div>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-4 sm:space-y-6 md:space-y-8">
           {servicesList.map((service, index) => (
             <motion.div 
               key={index}
@@ -35,13 +35,13 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-800 pb-6 hover:border-brand-primary transition-colors duration-300"
+              className="group flex flex-row justify-between items-center border-b border-gray-800 pb-4 sm:pb-6 hover:border-brand-primary transition-colors duration-300"
             >
-              <div className="mb-4 sm:mb-0">
-                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-primary transition-colors duration-300">{service.name}</h3>
-                <p className="text-gray-400 mt-1 md:mt-2 text-sm md:text-base">{service.desc}</p>
+              <div className="pr-4 flex-1">
+                <h3 className="text-base sm:text-xl md:text-2xl font-bold text-white group-hover:text-brand-primary transition-colors duration-300 leading-tight">{service.name}</h3>
+                <p className="text-gray-400 mt-1 md:mt-2 text-xs sm:text-sm md:text-base leading-snug">{service.desc}</p>
               </div>
-              <div className="text-2xl md:text-3xl font-display font-bold text-brand-primary">
+              <div className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-brand-primary flex-shrink-0">
                 {service.price}
               </div>
             </motion.div>
