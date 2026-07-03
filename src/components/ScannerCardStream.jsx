@@ -187,8 +187,11 @@ const ScannerCardStream = ({
     const baseMaxParticles = 800;
     let currentMaxParticles = baseMaxParticles;
     const scanTargetMaxParticles = 2500;
+    const scannerOffset = isMobile ? 100 : 160;
+    const scannerX = window.innerWidth / 2 - scannerOffset;
+
     const createScannerParticle = () => ({
-      x: window.innerWidth / 2 + (Math.random() - 0.5) * 3, y: Math.random() * 240, vx: Math.random() * 0.8 + 0.2, vy: (Math.random() - 0.5) * 0.3,
+      x: scannerX + (Math.random() - 0.5) * 3, y: Math.random() * 240, vx: Math.random() * 0.8 + 0.2, vy: (Math.random() - 0.5) * 0.3,
       radius: Math.random() * 0.6 + 0.4, alpha: Math.random() * 0.4 + 0.6, life: 1.0, decay: Math.random() * 0.02 + 0.005,
     });
     for (let i = 0; i < baseMaxParticles; i++) scannerParticles.push(createScannerParticle());
@@ -212,7 +215,8 @@ const ScannerCardStream = ({
     };
 
     const updateCardEffects = () => {
-      const scannerX = window.innerWidth / 2;
+      const scannerOffset = isMobile ? 100 : 160;
+      const scannerX = window.innerWidth / 2 - scannerOffset;
       const scannerWidth = 8;
       const scannerLeft = scannerX - scannerWidth / 2;
       const scannerRight = scannerX + scannerWidth / 2;
@@ -317,12 +321,13 @@ const ScannerCardStream = ({
       
       <div
         className={`
-          scanner-line absolute top-1/2 left-1/2 h-[260px] w-0.5 -translate-x-1/2 -translate-y-1/2 
+          scanner-line absolute top-1/2 h-[260px] w-0.5 -translate-x-1/2 -translate-y-1/2 
           bg-gradient-to-b from-transparent via-violet-500 to-transparent rounded-full
           transition-opacity duration-300 z-20 pointer-events-none animate-scan-pulse
           ${isScanning ? 'opacity-100' : 'opacity-0'}
         `}
         style={{
+          left: `calc(50% - ${isMobile ? 100 : 160}px)`,
           boxShadow: `
             0 0 10px #a78bfa, 0 0 20px #a78bfa, 
             0 0 30px #8b5cf6, 0 0 50px #6366f1`
