@@ -70,7 +70,7 @@ const Navbar = () => {
     const scrollToSection = (id) => {
         setMobileMenuOpen(false);
         if (id === '#') {
-            window.history.pushState(null, '', '/');
+            window.history.pushState(null, '', '/mane-blends/');
             window.dispatchEvent(new HashChangeEvent("hashchange"));
             window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
