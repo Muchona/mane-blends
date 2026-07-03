@@ -31,7 +31,7 @@ const Benefits = () => {
   ];
 
   return (
-    <section className="bg-[#1a1a1a] text-white py-24 relative overflow-hidden" id="benefits">
+    <section className="bg-[#1a1a1a] text-white py-12 md:py-24 relative overflow-hidden" id="benefits">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
@@ -60,8 +60,8 @@ const Benefits = () => {
             transition={{ duration: 0.8 }}
             className="lg:pl-8"
           >
-            <h4 className="text-[#E74C3C] text-sm font-bold tracking-widest uppercase mb-4 font-display">Our Benefits</h4>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 font-display leading-tight">
+            <h4 className="text-[#E74C3C] text-xs md:text-sm font-bold tracking-widest uppercase mb-2 md:mb-4 font-display">Our Benefits</h4>
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 font-display leading-tight">
               Professional Barbershop &<br />Hair Studio For Men Only
             </h2>
             <p className="text-gray-400 mb-12 text-lg leading-relaxed">
@@ -74,13 +74,13 @@ const Benefits = () => {
               
               {stats.map((stat, index) => (
                 <div key={index} className="pb-8 relative z-10">
-                  <div className="flex items-start mb-2">
-                    <span className="text-5xl font-bold font-display">
+                  <div className="flex items-start mb-1 md:mb-2">
+                    <span className="text-3xl md:text-5xl font-bold font-display">
                       <Counter from={0} to={parseInt(stat.number)} duration={2} />
                     </span>
-                    {stat.suffix && <span className="text-[#E74C3C] text-4xl font-bold ml-1">{stat.suffix}</span>}
+                    {stat.suffix && <span className="text-[#E74C3C] text-2xl md:text-4xl font-bold ml-1">{stat.suffix}</span>}
                   </div>
-                  <p className="text-gray-300 font-medium text-lg">{stat.text}</p>
+                  <p className="text-gray-300 font-medium text-sm md:text-lg">{stat.text}</p>
                 </div>
               ))}
             </div>

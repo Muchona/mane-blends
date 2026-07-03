@@ -13,14 +13,14 @@ const servicesList = [
 
 const Services = () => {
   return (
-    <section id="services" className="py-24 bg-[#14171c]">
+    <section id="services" className="py-12 md:py-24 bg-[#14171c]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-display font-bold text-white mb-4 uppercase tracking-tight"
+            className="text-3xl md:text-5xl font-display font-bold text-white mb-4 uppercase tracking-tight"
           >
             Services & <span className="text-brand-primary">Pricing</span>
           </motion.h2>
@@ -38,10 +38,10 @@ const Services = () => {
               className="group flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-800 pb-6 hover:border-brand-primary transition-colors duration-300"
             >
               <div className="mb-4 sm:mb-0">
-                <h3 className="text-2xl font-bold text-white group-hover:text-brand-primary transition-colors duration-300">{service.name}</h3>
-                <p className="text-gray-400 mt-2">{service.desc}</p>
+                <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-brand-primary transition-colors duration-300">{service.name}</h3>
+                <p className="text-gray-400 mt-1 md:mt-2 text-sm md:text-base">{service.desc}</p>
               </div>
-              <div className="text-3xl font-display font-bold text-brand-primary">
+              <div className="text-2xl md:text-3xl font-display font-bold text-brand-primary">
                 {service.price}
               </div>
             </motion.div>

@@ -61,15 +61,15 @@ const GallerySection = () => {
   }, []);
 
   return (
-    <section id="gallery" className="py-24 relative overflow-hidden bg-[#050505]">
+    <section id="gallery" className="py-12 md:py-24 relative overflow-hidden bg-[#050505]">
       {/* Background Gradients */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-primary/5 via-transparent to-transparent pointer-events-none" />
 
       <div className="relative flex flex-col items-center justify-center font-sans text-white z-10 w-full px-4"> 
         {/* Header Section */}
         <div className="w-full max-w-2xl text-center mb-16">
-          <h4 className="text-brand-primary text-sm font-bold tracking-widest uppercase mb-4 font-display">Our Work</h4>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 font-display drop-shadow-lg animate-fadeInTop delay-300">
+          <h4 className="text-brand-primary text-xs md:text-sm font-bold tracking-widest uppercase mb-2 md:mb-4 font-display">Our Work</h4>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 md:mb-6 font-display drop-shadow-lg animate-fadeInTop delay-300">
             The Mane Blends Experience
           </h2>
           <p className="text-lg text-gray-400 font-medium max-w-xl mx-auto animate-fadeInTop delay-600">

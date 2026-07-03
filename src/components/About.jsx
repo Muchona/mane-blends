@@ -9,7 +9,7 @@ const features = [
 
 const About = () => {
   return (
-    <section id="about" className="py-24 bg-brand-dark">
+    <section id="about" className="py-12 md:py-24 bg-brand-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <motion.div
@@ -18,11 +18,11 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-4 md:mb-6">
               More Than Just <br/>
               <span className="text-brand-primary">A Haircut.</span>
             </h2>
-            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+            <p className="text-gray-400 text-base md:text-lg mb-8 leading-relaxed">
               At Mane Blends Premium Barbershop, we believe that a great haircut is the foundation of a man's confidence. Located in the heart of Monaghan, our studio offers a modern sanctuary where classic barbering techniques meet contemporary style.
             </p>
             <div className="space-y-6">
@@ -32,8 +32,8 @@ const About = () => {
                     {feature.icon}
                   </div>
                   <div>
-                    <h4 className="text-white font-bold text-xl">{feature.title}</h4>
-                    <p className="text-gray-400 mt-1">{feature.desc}</p>
+                    <h4 className="text-white font-bold text-lg md:text-xl">{feature.title}</h4>
+                    <p className="text-gray-400 mt-1 text-sm md:text-base">{feature.desc}</p>
                   </div>
                 </div>
               ))}
